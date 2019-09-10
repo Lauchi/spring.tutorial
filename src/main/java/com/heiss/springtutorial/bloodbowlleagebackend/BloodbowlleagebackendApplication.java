@@ -9,5 +9,4 @@ public class BloodbowlleagebackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(BloodbowlleagebackendApplication.class, args);
     }
-
 }
