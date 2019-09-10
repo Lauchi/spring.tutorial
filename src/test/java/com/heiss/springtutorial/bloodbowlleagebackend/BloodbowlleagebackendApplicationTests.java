@@ -11,6 +11,6 @@ public class BloodbowlleagebackendApplicationTests {
 
     @Test
     public void contextLoads() {
+        BloodbowlleagebackendApplication bloodbowlleagebackendApplication = new BloodbowlleagebackendApplication();
     }
-
 }
