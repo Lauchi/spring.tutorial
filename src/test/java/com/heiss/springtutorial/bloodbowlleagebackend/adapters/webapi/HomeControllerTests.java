@@ -22,8 +22,8 @@ public class HomeControllerTests {
     public void testHomePage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("homeView"))
+                .andExpect(view().name("home"))
                 .andExpect(content().string(
-                        containsString("Welcome to...")));
+                        containsString("naiser scheiss")));
     }
 }
