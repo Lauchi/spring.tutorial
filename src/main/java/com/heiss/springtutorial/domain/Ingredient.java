@@ -1,4 +1,4 @@
-package com.heiss.springtutorial.bloodbowlleagebackend.domain;
+package com.heiss.springtutorial.domain;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

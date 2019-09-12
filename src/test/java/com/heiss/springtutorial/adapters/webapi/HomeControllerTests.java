@@ -1,4 +1,4 @@
-package com.heiss.springtutorial.bloodbowlleagebackend.adapters.webapi;
+package com.heiss.springtutorial.adapters.webapi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

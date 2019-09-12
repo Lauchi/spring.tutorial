@@ -1,4 +1,4 @@
-package com.heiss.springtutorial.bloodbowlleagebackend;
+package com.heiss.springtutorial;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
