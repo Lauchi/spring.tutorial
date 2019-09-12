@@ -1,11 +1,11 @@
-package com.heiss.springtutorial.bloodbowlleagebackend.teams;
+package com.heiss.springtutorial.bloodbowlleagebackend.adapters.webapi;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class TeamController {
+public class HomeController {
 
     @GetMapping("/")
     public String home() {

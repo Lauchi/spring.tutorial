@@ -1,4 +1,4 @@
-package com.heiss.springtutorial.bloodbowlleagebackend.teams;
+package com.heiss.springtutorial.bloodbowlleagebackend.adapters.webapi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +12,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(TeamController.class)
-public class TeamControllerTests {
+@WebMvcTest(HomeController.class)
+public class HomeControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -22,7 +22,7 @@ public class TeamControllerTests {
     public void testHomePage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("home"))
+                .andExpect(view().name("homeView"))
                 .andExpect(content().string(
                         containsString("Welcome to...")));
     }
