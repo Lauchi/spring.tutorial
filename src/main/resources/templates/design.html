@@ -7,7 +7,6 @@
 </head>
 <body>
 <h1>Design your taco!</h1>
-<img th:src="@{/images/TacoCloud.png}"/>
 <form method="POST" th:object="${design}">
     <div class="grid">
         <div class="ingredient-group" id="wraps">
@@ -29,8 +28,6 @@
         <div class="ingredient-group" id="cheeses">
             <h3>Choose your cheese:</h3>
             <div th:each="ingredient : ${cheese}">
-                Listing 2.3 The complete design-a-taco page
-                38 CHAPTER 2 Developing web applications
                 <input name="ingredients" type="checkbox" th:value="${ingredient.id}"
                 />
                 <span th:text="${ingredient.name}">INGREDIENT</span><br/>
@@ -47,8 +44,7 @@
         <div class="ingredient-group" id="sauces">
             <h3>Select your sauce:</h3>
             <div th:each="ingredient : ${sauce}">
-                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"
-                />
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
                 <span th:text="${ingredient.name}">INGREDIENT</span><br/>
             </div>
         </div>
