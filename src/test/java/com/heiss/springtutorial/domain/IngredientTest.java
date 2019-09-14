@@ -10,7 +10,7 @@ public class IngredientTest {
 
     @Test
     public void createDeployment() {
-        Ingredient ingredient = new Ingredient("id", "Apple", Ingredient.Type.VEGGIES);
+        Ingredient ingredient = new Ingredient("id", "Apple", Ingredient.IngredientType.VEGGIES);
 
         Assert.assertEquals("Apple", ingredient.getName());
     }

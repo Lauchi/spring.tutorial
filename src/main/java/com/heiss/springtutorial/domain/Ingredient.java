@@ -8,9 +8,9 @@ import lombok.RequiredArgsConstructor;
 public class Ingredient {
     private final String id;
     private final String name;
-    private final Type type;
+    private final IngredientType ingredientType;
 
-    public static enum Type {
+    public enum IngredientType {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
 }
