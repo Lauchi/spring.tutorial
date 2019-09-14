@@ -55,8 +55,8 @@ public class DesignController {
     }
 
     @PostMapping
-    public String processDesign(Design design) {
-        log.info("Processing design: " + design);
+    public String processDesign(Taco taco) {
+        log.info("Processing design: " + taco);
         return "redirect:/design";
     }
 }
