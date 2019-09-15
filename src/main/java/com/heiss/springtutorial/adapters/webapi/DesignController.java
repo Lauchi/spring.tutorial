@@ -8,10 +8,12 @@ import com.heiss.springtutorial.domain.Taco;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -32,7 +34,10 @@ public class DesignController {
     }
 
     @PostMapping
-    public String processDesign(Taco taco) {
+    public String processDesign(@Valid Taco taco, Errors errors) {
+        if (errors.hasErrors()) {
+            return "redirect:/design";
+        }
         MemoryRepository.CurrentOrder = taco;
         return "redirect:/order/current";
     }

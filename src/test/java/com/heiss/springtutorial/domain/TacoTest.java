@@ -11,10 +11,10 @@ import java.util.List;
 public class TacoTest {
 
     @Test
-    public void createDeployment() {
+    public void createTaco() {
         List<String> ingredients = new ArrayList<>();
         ingredients.add("Zwiebel");
 
-        Taco ingredient = new Taco();
+        Taco taco = new Taco();
     }
 }

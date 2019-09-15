@@ -7,10 +7,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BloodbowlleagebackendApplicationTests {
+public class TacoDesignerApplicationTests {
 
     @Test
     public void contextLoads() {
-        BloodbowlleagebackendApplication bloodbowlleagebackendApplication = new BloodbowlleagebackendApplication();
+        TacoDesignerApplication tacoDesignerApplication = new TacoDesignerApplication();
     }
 }
