@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1 th:text="${'Du hast einen ' + tacoName + ':'}">TEXT</h1>
-<div th:each="ingredients">
+<div th:each="ingredient : ${ingredients}" >
     <span th:text="${ingredient.name}">INGREDIENT</span><br/>
 </div>
 </body>
