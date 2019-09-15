@@ -52,6 +52,9 @@
     <div>
         <h3>Name your taco creation:</h3>
         <input type="text" th:field="*{tacoName}"/>
+        <span class="validationError"
+              th:if="${#fields.hasErrors()}"
+              th:errors="*{tacoName}">Taco name too short</span>
         <br/>
         <button>Submit your taco</button>
     </div>
