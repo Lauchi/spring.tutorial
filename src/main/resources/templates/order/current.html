@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <title>Current Order</title>
+</head>
+<body>
+<h1 th:text="${'Du hast einen ' + tacoName + ':'}">TEXT</h1>
+<div th:each="ingredients">
+    <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+</div>
+</body>
+</html>
