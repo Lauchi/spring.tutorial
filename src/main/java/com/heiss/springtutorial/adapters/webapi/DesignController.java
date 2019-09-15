@@ -27,7 +27,7 @@ public class DesignController {
             List<Ingredient> ingredientsByType = IngredientRepository.byType(ingredientType);
             model.addAttribute(ingredientType.toString().toLowerCase(), ingredientsByType);
         }
-        model.addAttribute("design", new Taco());
+        model.addAttribute("tacoDesign", new Taco());
         return "design";
     }
 
