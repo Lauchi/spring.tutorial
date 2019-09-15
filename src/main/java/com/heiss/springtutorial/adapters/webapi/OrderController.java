@@ -20,7 +20,7 @@ import java.util.List;
 public class OrderController {
 
     @GetMapping("current")
-    public String showDesignForm(Model model) {
+    public String shorCurrentDesign(Model model) {
         Taco currentOrder = MemoryRepository.CurrentOrder;
         model.addAttribute("tacoName", currentOrder.getTacoName());
         List<Ingredient> ingredientList = new ArrayList<>();
@@ -30,13 +30,22 @@ public class OrderController {
         }
 
         model.addAttribute("ingredients", ingredientList);
+        model.addAttribute("order", new TacoOrder());
 
-        return "order/current";
+        return "order/orderForm";
+    }
+
+    @GetMapping()
+    public String showOrders(Model model) {
+        List<TacoOrder> all = OrderRepository.getAll();
+        model.addAttribute("orders", all);
+
+        return "order";
     }
 
     @PostMapping
-    public String processDesign(TacoOrder order) {
-        log.info("Processing order: " + order);
-        return "redirect:/design";
+    public String processOrder(TacoOrder order) {
+        OrderRepository.add(order);
+        return "redirect:/order";
     }
 }
