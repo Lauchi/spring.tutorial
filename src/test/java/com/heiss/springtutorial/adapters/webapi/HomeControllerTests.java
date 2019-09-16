@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(HomeController.class)
+@WebMvcTest()
 public class HomeControllerTests {
 
     @Autowired
@@ -22,8 +22,6 @@ public class HomeControllerTests {
     public void testHomePage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("home"))
-                .andExpect(content().string(
-                        containsString("naiser scheiss")));
+                .andExpect(view().name("home"));
     }
 }
