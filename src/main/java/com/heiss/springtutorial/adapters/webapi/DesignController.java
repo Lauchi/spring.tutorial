@@ -2,10 +2,12 @@ package com.heiss.springtutorial.adapters.webapi;
 
 import com.heiss.springtutorial.adapters.peristence.memory.IngredientRepository;
 import com.heiss.springtutorial.adapters.peristence.memory.MemoryRepository;
+import com.heiss.springtutorial.application.IIngredientRepository;
 import com.heiss.springtutorial.domain.Ingredient;
 import com.heiss.springtutorial.domain.Ingredient.IngredientType;
 import com.heiss.springtutorial.domain.Taco;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,19 +16,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("/design")
 public class DesignController {
 
+    @Autowired
+    private IIngredientRepository ingredientRepository;
+
     @GetMapping
     public String showDesignForm(Model model) {
         IngredientType[] ingredientTypes = IngredientType.values();
 
         for (IngredientType ingredientType : ingredientTypes) {
-            List<Ingredient> ingredientsByType = IngredientRepository.byType(ingredientType);
+            Iterable<Ingredient> ingredientsByType = ingredientRepository.byType(ingredientType);
             model.addAttribute(ingredientType.toString().toLowerCase(), ingredientsByType);
         }
         model.addAttribute("tacoDesign", new Taco());

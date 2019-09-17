@@ -3,9 +3,12 @@ package com.heiss.springtutorial.adapters.webapi;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Data
 public class TacoOrder {
+    private Long id;
+    private Date placedAt;
 
     @NotBlank(message="name is required")
     private String name;
