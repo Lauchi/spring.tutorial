@@ -22,22 +22,21 @@ public class IngredientRepositoryTest {
 
     @Test
     public void saveAndGetById() {
-        ingredientRepository.save(new Ingredient("FLTO", "Flour Tortilla", Ingredient.IngredientType.WRAP));
-        Ingredient flour = ingredientRepository.findOne("FLTO");
+        ingredientRepository.save(new Ingredient("PGM", "Pig Meat", Ingredient.IngredientType.PROTEIN));
+        Ingredient flour = ingredientRepository.findOne("PGM");
 
-        Assert.assertEquals(flour.getId(), "FLTO");
-        Assert.assertEquals(flour.getName(), "Flour Tortilla");
-        Assert.assertEquals(flour.getIngredientType(), Ingredient.IngredientType.WRAP);
+        Assert.assertEquals(flour.getId(), "PGM");
+        Assert.assertEquals(flour.getName(), "Pig Meat");
+        Assert.assertEquals(flour.getIngredientType(), Ingredient.IngredientType.PROTEIN);
     }
 
     @Test
     public void byType() {
-        ingredientRepository.save(new Ingredient("FLTO", "Flour Tortilla", Ingredient.IngredientType.WRAP));
-        ingredientRepository.save(new Ingredient("GRBF", "Ground Beef", Ingredient.IngredientType.PROTEIN));
 
         Iterable<Ingredient> ingredients = ingredientRepository.byType(Ingredient.IngredientType.WRAP);
         Iterator<Ingredient> iterator = ingredients.iterator();
         Ingredient next = iterator.next();
+        iterator.next();
 
         Assert.assertEquals(Ingredient.IngredientType.WRAP, next.getIngredientType());
         Assert.assertEquals(false, iterator.hasNext());
