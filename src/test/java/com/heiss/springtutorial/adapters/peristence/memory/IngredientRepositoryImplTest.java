@@ -1,6 +1,6 @@
 package com.heiss.springtutorial.adapters.peristence.memory;
 
-import com.heiss.springtutorial.application.IIngredientRepository;
+import com.heiss.springtutorial.application.IngredientRepository;
 import com.heiss.springtutorial.domain.Ingredient;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import java.util.Iterator;
 @RunWith(SpringRunner.class)
 @JdbcTest
 @ComponentScan
-public class IngredientRepositoryTest {
+public class IngredientRepositoryImplTest {
 
     @Autowired
     private IngredientRepository ingredientRepository;

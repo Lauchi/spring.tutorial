@@ -15,6 +15,5 @@ public class TacoTest {
         List<String> ingredients = new ArrayList<>();
         ingredients.add("Zwiebel");
 
-        Taco taco = new Taco();
     }
 }

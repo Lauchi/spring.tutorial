@@ -1,8 +1,7 @@
 package com.heiss.springtutorial.adapters.webapi;
 
-import com.heiss.springtutorial.adapters.peristence.memory.IngredientRepository;
 import com.heiss.springtutorial.adapters.peristence.memory.MemoryRepository;
-import com.heiss.springtutorial.application.IIngredientRepository;
+import com.heiss.springtutorial.application.IngredientRepository;
 import com.heiss.springtutorial.domain.Ingredient;
 import com.heiss.springtutorial.domain.Taco;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private IIngredientRepository ingredientRepository;
+    private IngredientRepository ingredientRepository;
 
     @GetMapping("current")
     public String shorCurrentDesign(Model model) {

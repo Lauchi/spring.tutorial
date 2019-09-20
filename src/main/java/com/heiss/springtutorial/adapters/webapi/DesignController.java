@@ -1,8 +1,7 @@
 package com.heiss.springtutorial.adapters.webapi;
 
-import com.heiss.springtutorial.adapters.peristence.memory.IngredientRepository;
 import com.heiss.springtutorial.adapters.peristence.memory.MemoryRepository;
-import com.heiss.springtutorial.application.IIngredientRepository;
+import com.heiss.springtutorial.application.IngredientRepository;
 import com.heiss.springtutorial.domain.Ingredient;
 import com.heiss.springtutorial.domain.Ingredient.IngredientType;
 import com.heiss.springtutorial.domain.Taco;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Slf4j
 @Controller
@@ -23,7 +23,7 @@ import javax.validation.Valid;
 public class DesignController {
 
     @Autowired
-    private IIngredientRepository ingredientRepository;
+    private IngredientRepository ingredientRepository;
 
     @GetMapping
     public String showDesignForm(Model model) {
@@ -33,7 +33,7 @@ public class DesignController {
             Iterable<Ingredient> ingredientsByType = ingredientRepository.byType(ingredientType);
             model.addAttribute(ingredientType.toString().toLowerCase(), ingredientsByType);
         }
-        model.addAttribute("tacoDesign", new Taco());
+      //  model.addAttribute("tacoDesign", new Taco("", new ArrayList<>()));
         return "design";
     }
 

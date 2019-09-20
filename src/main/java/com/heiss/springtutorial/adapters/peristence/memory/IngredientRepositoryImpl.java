@@ -1,6 +1,6 @@
 package com.heiss.springtutorial.adapters.peristence.memory;
 
-import com.heiss.springtutorial.application.IIngredientRepository;
+import com.heiss.springtutorial.application.IngredientRepository;
 import com.heiss.springtutorial.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,20 +16,20 @@ import java.sql.Types;
 import java.util.Arrays;
 
 @Repository
-public class IngredientRepository implements IIngredientRepository {
+public class IngredientRepositoryImpl implements IngredientRepository {
 
     @Autowired
     private JdbcTemplate jdbc;
 
     @Override
     public Iterable<Ingredient> byType(Ingredient.IngredientType ingredientType) {
-        return jdbc.query("select id, name, ingredientType from Ingredient where ingredientType=?",
+        return jdbc.query("select id, name, ingredientType from Ingredients where ingredientType=?",
                 this::mapRowToIngredient, ingredientType.toString());
     }
 
     @Override
     public Iterable<Ingredient> findAll() {
-        return jdbc.query("select id, name, ingredientType from Ingredient",
+        return jdbc.query("select id, name, ingredientType from Ingredients",
                 this::mapRowToIngredient);
     }
 
@@ -44,7 +44,7 @@ public class IngredientRepository implements IIngredientRepository {
     @Override
     public Ingredient findOne(String id) {
         return jdbc.queryForObject(
-                "select id, name, ingredientType from Ingredient where id=?",
+                "select id, name, ingredientType from Ingredients where id=?",
                 this::mapRowToIngredient, id);
     }
 
@@ -52,8 +52,8 @@ public class IngredientRepository implements IIngredientRepository {
     public void save(Ingredient ingredient) {
         PreparedStatementCreator psc =
                 new PreparedStatementCreatorFactory(
-                        "insert into Ingredient (id, name, ingredientType) values (?, ?, ?)",
-                        Types.NVARCHAR, Types.NVARCHAR, Types.NVARCHAR
+                        "insert into Ingredients (id, name, ingredientType) values (?, ?, ?)",
+                        Types.VARCHAR, Types.VARCHAR, Types.VARCHAR
                 ).newPreparedStatementCreator(
                         Arrays.asList(
                                 ingredient.getId(),
