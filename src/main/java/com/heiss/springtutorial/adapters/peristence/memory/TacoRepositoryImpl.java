@@ -46,8 +46,14 @@ public class TacoRepositoryImpl implements TacoRepository {
     }
 
     @Override
-    public Taco findOne(String id) {
-        return null;
+    public Taco findOne(UUID id) {
+        var results = database.queryForObject(
+                "Select * from Tacos join TacoIngredientsCrossMap " +
+                "on TacoIngredientsCrossMap.tacoId = Tacos.id " +
+                "where Tacos.id = ?",
+                this::mapper,
+                id.toString());
+        return results;
     }
 
     @Override

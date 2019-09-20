@@ -40,4 +40,13 @@ public class TacoRepositoryImplTest {
         Assert.assertEquals(1, ingredients.size());
         Assert.assertEquals(e.getId(), ingredients.get(0));
     }
+
+    @Test
+    public void getById() {
+        Taco taco = Taco.Create("name", new ArrayList<>());
+        tacoRepository.save(taco);
+        Taco tacoFromDb = tacoRepository.findOne(taco.getId());
+        Assert.assertEquals(taco.getTacoName(), tacoFromDb.getTacoName());
+        Assert.assertEquals(taco.getId(), tacoFromDb.getId());
+    }
 }
