@@ -26,7 +26,7 @@ public class TacoRepositoryImpl implements TacoRepository {
     @Override
     public Iterable<Taco> findAll() {
         var results = database.query(
-                "Select * from Tacos join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Tacos.id",
+                "Select * from Tacos left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Tacos.id",
                 this::mapper);
         return results;
     }
@@ -49,7 +49,7 @@ public class TacoRepositoryImpl implements TacoRepository {
     public Taco findOne(UUID id) {
         var results = database.query(
                 "Select * from Tacos " +
-                        "join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Tacos.id " +
+                        "left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Tacos.id " +
                 "where Tacos.id = ?",
                 this::mapper,
                 id.toString());
