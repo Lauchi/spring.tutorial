@@ -1,7 +1,7 @@
 package com.heiss.springtutorial.adapters.webapi;
 
-import com.heiss.springtutorial.adapters.peristence.memory.MemoryRepository;
 import com.heiss.springtutorial.application.IngredientRepository;
+import com.heiss.springtutorial.application.OrderRepository;
 import com.heiss.springtutorial.domain.Ingredient;
 import com.heiss.springtutorial.domain.Taco;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +22,12 @@ public class OrderController {
 
     @Autowired
     private IngredientRepository ingredientRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping("current")
     public String shorCurrentDesign(Model model) {
-        Taco currentOrder = MemoryRepository.CurrentOrder;
+        Taco currentOrder = orderRepository.findCurrentOrder();
         model.addAttribute("tacoName", currentOrder.getTacoName());
         List<Ingredient> ingredientList = new ArrayList<>();
         for (String ingredientId : currentOrder.getTacoIngredients()) {
@@ -41,7 +43,7 @@ public class OrderController {
 
     @GetMapping()
     public String showOrders(Model model) {
-        List<TacoOrder> all = OrderRepository.getAll();
+        Iterable<TacoOrder> all = orderRepository.getAll();
         model.addAttribute("orders", all);
 
         return "order";
@@ -49,7 +51,7 @@ public class OrderController {
 
     @PostMapping
     public String processOrder(TacoOrder order) {
-        OrderRepository.add(order);
+        orderRepository.save(order);
         return "redirect:/order";
     }
 }

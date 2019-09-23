@@ -1,4 +1,4 @@
-package com.heiss.springtutorial.adapters.peristence.memory;
+package com.heiss.springtutorial.adapters.peristence.sql;
 
 import com.heiss.springtutorial.application.TacoRepository;
 import com.heiss.springtutorial.domain.Taco;
@@ -47,13 +47,13 @@ public class TacoRepositoryImpl implements TacoRepository {
 
     @Override
     public Taco findOne(UUID id) {
-        var results = database.queryForObject(
-                "Select * from Tacos join TacoIngredientsCrossMap " +
-                "on TacoIngredientsCrossMap.tacoId = Tacos.id " +
+        var results = database.query(
+                "Select * from Tacos " +
+                        "join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Tacos.id " +
                 "where Tacos.id = ?",
                 this::mapper,
                 id.toString());
-        return results;
+        return results.size() == 0 ? null : results.get(0);
     }
 
     @Override

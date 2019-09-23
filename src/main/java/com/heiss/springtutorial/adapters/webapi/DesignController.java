@@ -1,7 +1,8 @@
 package com.heiss.springtutorial.adapters.webapi;
 
-import com.heiss.springtutorial.adapters.peristence.memory.MemoryRepository;
 import com.heiss.springtutorial.application.IngredientRepository;
+import com.heiss.springtutorial.application.OrderRepository;
+import com.heiss.springtutorial.application.TacoRepository;
 import com.heiss.springtutorial.domain.Ingredient;
 import com.heiss.springtutorial.domain.Ingredient.IngredientType;
 import com.heiss.springtutorial.domain.Taco;
@@ -24,6 +25,8 @@ public class DesignController {
 
     @Autowired
     private IngredientRepository ingredientRepository;
+    @Autowired
+    private TacoRepository tacoRepository;
 
     @GetMapping
     public String showDesignForm(Model model) {
@@ -33,7 +36,7 @@ public class DesignController {
             Iterable<Ingredient> ingredientsByType = ingredientRepository.byType(ingredientType);
             model.addAttribute(ingredientType.toString().toLowerCase(), ingredientsByType);
         }
-      //  model.addAttribute("tacoDesign", new Taco("", new ArrayList<>()));
+        model.addAttribute("tacoDesign", Taco.Create("", new ArrayList<>()));
         return "design";
     }
 
@@ -42,7 +45,7 @@ public class DesignController {
         if (errors.hasErrors()) {
             return "redirect:/design";
         }
-        MemoryRepository.CurrentOrder = taco;
+        tacoRepository.save(taco);
         return "redirect:/order/current";
     }
 }

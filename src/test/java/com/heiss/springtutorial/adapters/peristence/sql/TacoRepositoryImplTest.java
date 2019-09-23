@@ -1,4 +1,4 @@
-package com.heiss.springtutorial.adapters.peristence.memory;
+package com.heiss.springtutorial.adapters.peristence.sql;
 
 
 import com.heiss.springtutorial.domain.Ingredient;
