@@ -31,11 +31,12 @@ public class OrderRepositoryImpl implements OrderRepository {
     public void save(TacoOrder tacoOrder) {
         PreparedStatementCreator psc =
                 new PreparedStatementCreatorFactory(
-                        "insert into TacoOrder (id, placedAt, name, street, city, state, ccNumber ) values (?, ?, ?, ?, ?, ?, ?)",
-                        Types.VARCHAR, Types.DATE, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR
+                        "insert into TacoOrder (id, tacoId, placedAt, name, street, city, state, ccNumber ) values (?, ?, ?, ?, ?, ?, ?, ?)",
+                        Types.VARCHAR, Types.VARCHAR, Types.DATE, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR
                 ).newPreparedStatementCreator(
                         Arrays.asList(
                                 tacoOrder.getId(),
+                                tacoOrder.getTacoId(),
                                 tacoOrder.getPlacedAt(),
                                 tacoOrder.getName(),
                                 tacoOrder.getStreet(),

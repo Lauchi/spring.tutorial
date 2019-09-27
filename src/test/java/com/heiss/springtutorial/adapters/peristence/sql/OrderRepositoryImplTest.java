@@ -25,11 +25,20 @@ public class OrderRepositoryImplTest {
     @Autowired
     private OrderRepositoryImpl orderRepository;
 
+    @Autowired
+    private TacoRepositoryImpl tacoRepository;
+
     @Test
     public void getAll() {
-        orderRepository.save(new TacoOrder());
+        Taco taco = Taco.Create("Fieses TEil", new ArrayList<>());
+        tacoRepository.save(taco);
+        TacoOrder tacoOrder = TacoOrder.Create(taco, "Simon Heiss", "Birkenstr. 4", "Pfinztal", "BW", "123456");
+        orderRepository.save(tacoOrder);
         Iterable<TacoOrder> all1 = orderRepository.getAll();
         List<TacoOrder> ingredients = StreamSupport.stream(all1.spliterator(), true).collect(Collectors.toList());
         Assert.assertEquals(1, ingredients.size());
+
+        TacoOrder order = (TacoOrder) ingredients.toArray()[0];
+        Assert.assertEquals("Simon Heiss", order.getName());
     }
 }

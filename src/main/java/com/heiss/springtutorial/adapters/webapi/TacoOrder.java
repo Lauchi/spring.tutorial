@@ -1,5 +1,6 @@
 package com.heiss.springtutorial.adapters.webapi;
 
+import com.heiss.springtutorial.domain.Taco;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -8,11 +9,12 @@ import java.util.UUID;
 
 @Data
 public class TacoOrder {
-    public static TacoOrder Create(String name, String street, String city, String state, String ccNumber) {
+    public static TacoOrder Create(Taco taco, String name, String street, String city, String state, String ccNumber) {
         TacoOrder tacoOrder = new TacoOrder();
 
         tacoOrder.setId(UUID.randomUUID());
         tacoOrder.setPlacedAt(LocalDateTime.now());
+        tacoOrder.setTacoId(taco.getId());
 
         tacoOrder.setName(name);
         tacoOrder.setStreet(street);
