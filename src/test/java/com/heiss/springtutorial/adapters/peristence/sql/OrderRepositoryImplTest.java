@@ -39,6 +39,10 @@ public class OrderRepositoryImplTest {
         Assert.assertEquals(1, ingredients.size());
 
         TacoOrder order = (TacoOrder) ingredients.toArray()[0];
-        Assert.assertEquals("Simon Heiss", order.getName());
+        Assert.assertEquals(tacoOrder.getName(), order.getName());
+        Assert.assertEquals(tacoOrder.getCity(), order.getCity());
+        Assert.assertEquals(tacoOrder.getState(), order.getState());
+        Assert.assertEquals(tacoOrder.getStreet(), order.getStreet());
+        Assert.assertEquals(tacoOrder.getCcNumber(), order.getCcNumber());
     }
 }

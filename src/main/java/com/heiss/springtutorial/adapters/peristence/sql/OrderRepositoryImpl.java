@@ -40,8 +40,8 @@ public class OrderRepositoryImpl implements OrderRepository {
                                 tacoOrder.getPlacedAt(),
                                 tacoOrder.getName(),
                                 tacoOrder.getStreet(),
-                                tacoOrder.getState(),
                                 tacoOrder.getCity(),
+                                tacoOrder.getState(),
                                 tacoOrder.getCcNumber()));
         KeyHolder keyHolder = new GeneratedKeyHolder();
         database.update(psc, keyHolder);
@@ -53,14 +53,16 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     private TacoOrder tacoOrderMapper(ResultSet resultSet, int i) throws SQLException {
-        String id = resultSet.getString("id");
-        String tacoId = resultSet.getString("tacoId");
-        String city = resultSet.getString("city");
-
         TacoOrder tacoOrder = new TacoOrder();
-        tacoOrder.setId(UUID.fromString(id));
-        tacoOrder.setCity(city);
-        tacoOrder.setTacoId(UUID.fromString(tacoId));
+        tacoOrder.setId(UUID.fromString(resultSet.getString("id")));
+        tacoOrder.setTacoId(UUID.fromString(resultSet.getString("tacoId")));
+
+        tacoOrder.setCity(resultSet.getString("city"));
+        tacoOrder.setName(resultSet.getString("name"));
+        tacoOrder.setCcNumber(resultSet.getString("ccNumber"));
+        tacoOrder.setState(resultSet.getString("state"));
+        tacoOrder.setStreet(resultSet.getString("street"));
+
         return tacoOrder;
     }
 }

@@ -26,7 +26,7 @@ public class TacoRepositoryImpl implements TacoRepository {
     @Override
     public Iterable<Taco> findAll() {
         var results = database.query(
-                "Select * from Tacos left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Tacos.id",
+                "Select * from Taco left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Taco.id",
                 this::mapper);
         return results;
     }
@@ -48,9 +48,9 @@ public class TacoRepositoryImpl implements TacoRepository {
     @Override
     public Taco findOne(UUID id) {
         var results = database.query(
-                "Select * from Tacos " +
-                        "left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Tacos.id " +
-                "where Tacos.id = ?",
+                "Select * from Taco " +
+                        "left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Taco.id " +
+                "where Taco.id = ?",
                 this::mapper,
                 id.toString());
         return results.size() == 0 ? null : results.get(0);
@@ -60,7 +60,7 @@ public class TacoRepositoryImpl implements TacoRepository {
     public void save(Taco taco) {
         PreparedStatementCreator preparedStatementCreator =
                 new PreparedStatementCreatorFactory(
-                        "INSERT INTO Tacos (id, tacoName) values (?, ?)",
+                        "INSERT INTO Taco (id, tacoName) values (?, ?)",
                         Types.VARCHAR, Types.VARCHAR)
                         .newPreparedStatementCreator(
                                 Arrays.asList(

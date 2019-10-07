@@ -23,13 +23,13 @@ public class IngredientRepositoryImpl implements IngredientRepository {
 
     @Override
     public Iterable<Ingredient> byType(Ingredient.IngredientType ingredientType) {
-        return jdbc.query("select id, name, ingredientType from Ingredients where ingredientType=?",
+        return jdbc.query("select id, name, ingredientType from Ingredient where ingredientType=?",
                 this::mapRowToIngredient, ingredientType.toString());
     }
 
     @Override
     public Iterable<Ingredient> findAll() {
-        return jdbc.query("select id, name, ingredientType from Ingredients",
+        return jdbc.query("select id, name, ingredientType from Ingredient",
                 this::mapRowToIngredient);
     }
 
@@ -44,7 +44,7 @@ public class IngredientRepositoryImpl implements IngredientRepository {
     @Override
     public Ingredient findOne(String id) {
         return jdbc.queryForObject(
-                "select id, name, ingredientType from Ingredients where id=?",
+                "select id, name, ingredientType from Ingredient where id=?",
                 this::mapRowToIngredient, id);
     }
 
@@ -52,7 +52,7 @@ public class IngredientRepositoryImpl implements IngredientRepository {
     public void save(Ingredient ingredient) {
         PreparedStatementCreator psc =
                 new PreparedStatementCreatorFactory(
-                        "insert into Ingredients (id, name, ingredientType) values (?, ?, ?)",
+                        "insert into Ingredient (id, name, ingredientType) values (?, ?, ?)",
                         Types.VARCHAR, Types.VARCHAR, Types.VARCHAR
                 ).newPreparedStatementCreator(
                         Arrays.asList(
