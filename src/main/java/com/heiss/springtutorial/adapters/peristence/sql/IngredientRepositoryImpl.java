@@ -59,7 +59,6 @@ public class IngredientRepositoryImpl implements IngredientRepository {
                                 ingredient.getId(),
                                 ingredient.getName(),
                                 ingredient.getIngredientType().toString()));
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbc.update(psc, keyHolder);
+        jdbc.update(psc);
     }
 }

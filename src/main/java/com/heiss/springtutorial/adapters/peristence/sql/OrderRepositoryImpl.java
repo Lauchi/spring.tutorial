@@ -43,8 +43,7 @@ public class OrderRepositoryImpl implements OrderRepository {
                                 tacoOrder.getCity(),
                                 tacoOrder.getState(),
                                 tacoOrder.getCcNumber()));
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        database.update(psc, keyHolder);
+        database.update(psc);
     }
 
     @Override

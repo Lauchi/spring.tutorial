@@ -83,8 +83,7 @@ public class TacoRepositoryImpl implements TacoRepository {
                                             in
                                     )
                             );
-            KeyHolder kh = new GeneratedKeyHolder();
-            database.update(psc, kh);
+            database.update(psc);
         }
     }
 }
