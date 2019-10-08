@@ -29,5 +29,5 @@ public class Taco {
 
     @NotNull(message = "You must choose at least 2 ingredient")
     @Size(min=2, message="You must choose at least 2 ingredient")
-    private final Iterable<String> tacoIngredients;
+    private final List<String> tacoIngredients;
 }

@@ -69,8 +69,7 @@ public class TacoRepositoryImpl implements TacoRepository {
                                 )
                         );
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        database.update(preparedStatementCreator, keyHolder);
+        database.update(preparedStatementCreator);
 
         for (String in : taco.getTacoIngredients()) {
             PreparedStatementCreator psc =
