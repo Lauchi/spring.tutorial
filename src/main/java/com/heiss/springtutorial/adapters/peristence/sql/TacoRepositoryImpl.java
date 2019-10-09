@@ -63,16 +63,18 @@ public class TacoRepositoryImpl implements TacoRepository {
 
     @Override
     public long save(Taco taco) {
+        PreparedStatementCreatorFactory preparedStatementCreatorFactory = new PreparedStatementCreatorFactory(
+                "INSERT INTO Taco (id, tacoName) values (?, ?)",
+                Types.VARCHAR, Types.VARCHAR);
+        preparedStatementCreatorFactory.setReturnGeneratedKeys(true);
+
         PreparedStatementCreator preparedStatementCreator =
-                new PreparedStatementCreatorFactory(
-                        "INSERT INTO Taco (id, tacoName) values (?, ?)",
-                        Types.VARCHAR, Types.VARCHAR)
+                preparedStatementCreatorFactory
                         .newPreparedStatementCreator(
                                 Arrays.asList(
                                         taco.getId(),
                                         taco.getTacoName()
-                                )
-                        );
+                                ));
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         database.update(preparedStatementCreator, keyHolder);

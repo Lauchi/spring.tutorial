@@ -1,6 +1,6 @@
 CREATE TABLE Ingredient
 (
-  id  varchar(4) not null,
+  id varchar(4) not null,
   name varchar(255) not null,
   ingredientType varchar(255) not null,
   primary key (id)
