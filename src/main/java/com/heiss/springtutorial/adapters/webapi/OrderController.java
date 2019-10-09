@@ -4,6 +4,7 @@ import com.heiss.springtutorial.application.IngredientRepository;
 import com.heiss.springtutorial.application.OrderRepository;
 import com.heiss.springtutorial.domain.Ingredient;
 import com.heiss.springtutorial.domain.Taco;
+import com.heiss.springtutorial.domain.TacoOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

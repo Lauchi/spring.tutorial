@@ -1,10 +1,12 @@
 package com.heiss.springtutorial.application;
 
-import com.heiss.springtutorial.adapters.webapi.TacoOrder;
+import com.heiss.springtutorial.domain.TacoOrder;
 import com.heiss.springtutorial.domain.Taco;
+
+import java.util.List;
 
 public interface OrderRepository {
     Taco findCurrentOrder();
-    void save(TacoOrder ingredient);
-    Iterable<TacoOrder> getAll();
+    long save(TacoOrder ingredient);
+    List<TacoOrder> getAll();
 }

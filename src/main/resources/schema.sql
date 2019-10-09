@@ -7,9 +7,9 @@ CREATE TABLE Ingredient
 );
 
 CREATE TABLE Taco(
-   id varchar(255) not null,
-   tacoName varchar(255) not null,
-   primary key (id)
+    id bigint not null auto_increment,
+    tacoName varchar(255) not null,
+    primary key (id)
 );
 
 CREATE TABLE TacoIngredientsCrossMap(
@@ -24,8 +24,8 @@ CREATE TABLE TacoIngredientsCrossMap(
 );
 
 CREATE TABLE TacoOrder(
-  id varchar(255) not null,
-  tacoId varchar(255) not null,
+  id bigint not null auto_increment,
+  tacoId bigint not null,
   placedAt datetime not null,
 
   name varchar(255) not null,

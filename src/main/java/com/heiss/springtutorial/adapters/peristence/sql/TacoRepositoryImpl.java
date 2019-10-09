@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 @Repository
 public class TacoRepositoryImpl implements TacoRepository {
@@ -34,7 +33,7 @@ public class TacoRepositoryImpl implements TacoRepository {
     private Taco mapper(ResultSet rs, int i)
         throws SQLException {
         String tacoName = rs.getString("tacoName");
-        UUID id = UUID.fromString(rs.getString("id"));
+        long id = rs.getLong("id");
         ArrayList<String> ingredientIds = new ArrayList<>();
 
         do {
@@ -42,22 +41,28 @@ public class TacoRepositoryImpl implements TacoRepository {
             ingredientIds.add(ingredientId);
         } while (rs.next());
 
-        return new Taco(id, null, tacoName, ingredientIds);
+        Taco taco = new Taco();
+        taco.setId(id);
+        taco.setCreatedAt(null);
+        taco.setTacoName(tacoName);
+        taco.setTacoIngredients(ingredientIds);
+
+        return taco;
     }
 
     @Override
-    public Taco findOne(UUID id) {
+    public Taco findOne(long id) {
         var results = database.query(
                 "Select * from Taco " +
                         "left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Taco.id " +
                 "where Taco.id = ?",
                 this::mapper,
-                id.toString());
+                id);
         return results.size() == 0 ? null : results.get(0);
     }
 
     @Override
-    public void save(Taco taco) {
+    public long save(Taco taco) {
         PreparedStatementCreator preparedStatementCreator =
                 new PreparedStatementCreatorFactory(
                         "INSERT INTO Taco (id, tacoName) values (?, ?)",
@@ -69,7 +74,10 @@ public class TacoRepositoryImpl implements TacoRepository {
                                 )
                         );
 
-        database.update(preparedStatementCreator);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        database.update(preparedStatementCreator, keyHolder);
+        Number key = keyHolder.getKey();
+        long newTacoKey = key.longValue();
 
         for (String in : taco.getTacoIngredients()) {
             PreparedStatementCreator psc =
@@ -78,11 +86,14 @@ public class TacoRepositoryImpl implements TacoRepository {
                             Types.VARCHAR, Types.VARCHAR)
                             .newPreparedStatementCreator(
                                     Arrays.asList(
-                                            taco.getId(),
+                                            newTacoKey,
                                             in
                                     )
                             );
             database.update(psc);
         }
+
+
+        return newTacoKey;
     }
 }

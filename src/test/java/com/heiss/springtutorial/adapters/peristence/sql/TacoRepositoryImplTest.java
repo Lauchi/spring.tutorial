@@ -26,11 +26,15 @@ public class TacoRepositoryImplTest {
 
     @Test
     public void getAll() {
-        ArrayList<Ingredient> tacoIngredients = new ArrayList<>();
-        Ingredient e = new Ingredient("CHED", "Cheddar", Ingredient.IngredientType.CHEESE);
-        tacoIngredients.add(e);
-        Taco taco = Taco.Create("name", tacoIngredients);
-        tacoRepository.save(taco);
+        List<String> tacoIngredients = new ArrayList<>();
+        String ingredient = "CHED";
+        tacoIngredients.add(ingredient);
+        Taco taco = new Taco();
+        taco.setTacoName("Fieses TEil");
+        taco.setTacoIngredients(tacoIngredients);
+
+        long id = tacoRepository.save(taco);
+        long id2 = tacoRepository.save(taco);
         Iterable<Taco> all = tacoRepository.findAll();
         List<Taco> collect = StreamSupport.stream(all.spliterator(), false).collect(Collectors.toList());
         Assert.assertEquals(1, collect.size());
@@ -38,12 +42,17 @@ public class TacoRepositoryImplTest {
         Assert.assertEquals(taco.getTacoName(), collect.get(0).getTacoName());
         List<String> ingredients = StreamSupport.stream(collect.get(0).getTacoIngredients().spliterator(), true).collect(Collectors.toList());
         Assert.assertEquals(1, ingredients.size());
-        Assert.assertEquals(e.getId(), ingredients.get(0));
+        Assert.assertEquals(0, id);
+        Assert.assertEquals(1, id2);
+        Assert.assertEquals(ingredient, ingredients.get(0));
     }
 
     @Test
     public void getById() {
-        Taco taco = Taco.Create("name", new ArrayList<>());
+        Taco taco = new Taco();
+        taco.setTacoName("Fieses TEil");
+        taco.setTacoIngredients(new ArrayList<>());
+
         tacoRepository.save(taco);
         Taco tacoFromDb = tacoRepository.findOne(taco.getId());
         Assert.assertEquals(taco.getTacoName(), tacoFromDb.getTacoName());
