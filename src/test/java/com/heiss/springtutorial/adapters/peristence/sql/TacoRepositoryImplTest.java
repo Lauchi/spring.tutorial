@@ -33,17 +33,16 @@ public class TacoRepositoryImplTest {
         taco.setTacoName("Fieses TEil");
         taco.setTacoIngredients(tacoIngredients);
 
-        long id = tacoRepository.save(taco);
-        long id2 = tacoRepository.save(taco);
+        tacoRepository.save(taco);
+        tacoRepository.save(taco);
+
         Iterable<Taco> all = tacoRepository.findAll();
         List<Taco> collect = StreamSupport.stream(all.spliterator(), false).collect(Collectors.toList());
-        Assert.assertEquals(1, collect.size());
-        Assert.assertEquals(taco.getId(), collect.get(0).getId());
-        Assert.assertEquals(taco.getTacoName(), collect.get(0).getTacoName());
-        List<String> ingredients = StreamSupport.stream(collect.get(0).getTacoIngredients().spliterator(), true).collect(Collectors.toList());
+        Assert.assertEquals(2, collect.size());
+        Taco tacoReloaded = collect.get(0);
+        Assert.assertEquals(taco.getTacoName(), tacoReloaded.getTacoName());
+        List<String> ingredients = StreamSupport.stream(tacoReloaded.getTacoIngredients().spliterator(), true).collect(Collectors.toList());
         Assert.assertEquals(1, ingredients.size());
-        Assert.assertEquals(0, id);
-        Assert.assertEquals(1, id2);
         Assert.assertEquals(ingredient, ingredients.get(0));
     }
 
@@ -53,9 +52,8 @@ public class TacoRepositoryImplTest {
         taco.setTacoName("Fieses TEil");
         taco.setTacoIngredients(new ArrayList<>());
 
-        tacoRepository.save(taco);
-        Taco tacoFromDb = tacoRepository.findOne(taco.getId());
+        long tacoId = tacoRepository.save(taco);
+        Taco tacoFromDb = tacoRepository.findOne(tacoId);
         Assert.assertEquals(taco.getTacoName(), tacoFromDb.getTacoName());
-        Assert.assertEquals(taco.getId(), tacoFromDb.getId());
     }
 }

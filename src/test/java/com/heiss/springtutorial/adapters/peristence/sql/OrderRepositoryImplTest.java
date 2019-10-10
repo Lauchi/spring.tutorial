@@ -32,22 +32,22 @@ public class OrderRepositoryImplTest {
         Taco taco = new Taco();
         taco.setTacoName("Fieses TEil");
         taco.setTacoIngredients(new ArrayList<>());
-        tacoRepository.save(taco);
+        long tacoId = tacoRepository.save(taco);
         TacoOrder tacoOrder = new TacoOrder();
-        tacoOrder.setTacoId(taco.getId());
+        tacoOrder.setTacoId(tacoId);
         tacoOrder.setName("Simon Heiss");
         tacoOrder.setStreet("Birkenstr. 4");
         tacoOrder.setCity("Pfinztal");
         tacoOrder.setState("BW");
         tacoOrder.setCcNumber("123456");
 
-        long id = orderRepository.save(tacoOrder);
+        long orderId = orderRepository.save(tacoOrder);
         Iterable<TacoOrder> all1 = orderRepository.getAll();
         List<TacoOrder> ingredients = StreamSupport.stream(all1.spliterator(), true).collect(Collectors.toList());
         Assert.assertEquals(1, ingredients.size());
 
         TacoOrder order = (TacoOrder) ingredients.toArray()[0];
-        Assert.assertEquals(1, id);
+        Assert.assertEquals(1, orderId);
         Assert.assertEquals(tacoOrder.getName(), order.getName());
         Assert.assertEquals(tacoOrder.getCity(), order.getCity());
         Assert.assertEquals(tacoOrder.getState(), order.getState());

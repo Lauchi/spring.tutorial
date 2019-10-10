@@ -32,14 +32,13 @@ public class OrderRepositoryImpl implements OrderRepository {
     public long save(TacoOrder tacoOrder) {
         tacoOrder.setPlacedAt(new Date());
         PreparedStatementCreatorFactory preparedStatementCreatorFactory = new PreparedStatementCreatorFactory(
-                "insert into TacoOrder (id, tacoId, placedAt, name, street, city, state, ccNumber ) values (?, ?, ?, ?, ?, ?, ?, ?)",
-                Types.VARCHAR, Types.VARCHAR, Types.DATE, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR
+                "insert into TacoOrder (tacoId, placedAt, name, street, city, state, ccNumber ) values (?, ?, ?, ?, ?, ?, ?)",
+                Types.BIGINT, Types.DATE, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR
         );
         preparedStatementCreatorFactory.setReturnGeneratedKeys(true);
         PreparedStatementCreator psc =
                 preparedStatementCreatorFactory.newPreparedStatementCreator(
                         Arrays.asList(
-                                tacoOrder.getId(),
                                 tacoOrder.getTacoId(),
                                 tacoOrder.getPlacedAt(),
                                 tacoOrder.getName(),

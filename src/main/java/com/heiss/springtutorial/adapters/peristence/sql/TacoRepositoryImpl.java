@@ -25,7 +25,7 @@ public class TacoRepositoryImpl implements TacoRepository {
     @Override
     public Iterable<Taco> findAll() {
         var results = database.query(
-                "Select * from Taco left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Taco.id",
+                "Select * from Taco left join TacoIngredientsCrossMap on TacoIngredientsCrossMap.tacoId = Taco.id order by Taco.id desc",
                 this::mapper);
         return results;
     }
@@ -33,16 +33,12 @@ public class TacoRepositoryImpl implements TacoRepository {
     private Taco mapper(ResultSet rs, int i)
         throws SQLException {
         String tacoName = rs.getString("tacoName");
-        long id = rs.getLong("id");
         ArrayList<String> ingredientIds = new ArrayList<>();
-
-        do {
-            String ingredientId = rs.getString("ingredientId");
-            ingredientIds.add(ingredientId);
-        } while (rs.next());
+        String ingredientId = rs.getString("ingredientId");
+        ingredientIds.add(ingredientId);
 
         Taco taco = new Taco();
-        taco.setId(id);
+        taco.setId(rs.getLong("id"));
         taco.setCreatedAt(null);
         taco.setTacoName(tacoName);
         taco.setTacoIngredients(ingredientIds);
@@ -64,15 +60,13 @@ public class TacoRepositoryImpl implements TacoRepository {
     @Override
     public long save(Taco taco) {
         PreparedStatementCreatorFactory preparedStatementCreatorFactory = new PreparedStatementCreatorFactory(
-                "INSERT INTO Taco (id, tacoName) values (?, ?)",
-                Types.VARCHAR, Types.VARCHAR);
+                "INSERT INTO Taco (tacoName) values (?)", Types.VARCHAR);
         preparedStatementCreatorFactory.setReturnGeneratedKeys(true);
 
         PreparedStatementCreator preparedStatementCreator =
                 preparedStatementCreatorFactory
                         .newPreparedStatementCreator(
                                 Arrays.asList(
-                                        taco.getId(),
                                         taco.getTacoName()
                                 ));
 
